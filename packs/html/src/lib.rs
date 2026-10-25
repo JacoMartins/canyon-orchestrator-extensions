@@ -1,4 +1,4 @@
-//! Canyon Orchestrator extension: the kotlin grammar, as a native library.
+//! Canyon Orchestrator extension: the html grammar, as a native library.
 //!
 //! The app loads this library and calls the two functions below (the "pack ABI").
 
