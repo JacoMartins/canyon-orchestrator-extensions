@@ -1,0 +1,13 @@
+[package]
+name = "canyon-pack-astro"
+version = "0.1.0"
+edition = "2026"
+description = "Canyon Orchestrator extension: the astro grammar, as a native library."
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+# Grammar crate. If a crates.io release exposing `LANGUAGE` exists, prefer it:
+# tree-sitter-astro = "<version>"
+tree-sitter-astro = { git = "https://github.com/virchau13/tree-sitter-astro" }
