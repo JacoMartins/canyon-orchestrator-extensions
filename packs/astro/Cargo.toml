@@ -9,6 +9,4 @@ name = "canyon_pack_astro"
 crate-type = ["cdylib"]
 
 [dependencies]
-# Grammar crate. If a crates.io release exposing `LANGUAGE` exists, prefer it:
-# tree-sitter-astro = "<version>"
 tree-sitter-astro-next = "0.1.1"
