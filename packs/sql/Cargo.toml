@@ -1,0 +1,12 @@
+[package]
+name = "canyon-pack-sql"
+version = "1.0.0"
+edition.workspace = true
+publish.workspace = true
+
+[lib]
+name = "canyon_pack_sql"
+crate-type = ["cdylib"]
+
+[dependencies]
+tree-sitter-sequel = "0.3"

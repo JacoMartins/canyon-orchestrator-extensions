@@ -1,0 +1,12 @@
+[workspace]
+resolver = "2"
+members = ["packs/*"]
+
+[workspace.package]
+edition = "2021"
+publish = false
+
+[profile.release]
+opt-level = 3
+strip = true
+lto = true

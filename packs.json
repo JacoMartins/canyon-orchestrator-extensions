@@ -1,0 +1,32 @@
+{
+  "release": 1,
+  "packs": [
+    {
+      "id": "kotlin",
+      "name": "Kotlin",
+      "version": "1.0.0",
+      "description": "Kotlin and Kotlin script: packages, imports, classes, objects and functions.",
+      "file_types": ["kt", "kts"],
+      "grammar": "tree-sitter-kotlin-ng",
+      "grammar_license": "MIT"
+    },
+    {
+      "id": "csharp",
+      "name": "C#",
+      "version": "1.0.0",
+      "description": "C#: namespaces, using directives, classes, records, structs and methods.",
+      "file_types": ["cs"],
+      "grammar": "tree-sitter-c-sharp",
+      "grammar_license": "MIT"
+    },
+    {
+      "id": "sql",
+      "name": "SQL (MySQL and others)",
+      "version": "1.0.0",
+      "description": "SQL files: tables, views and functions become part of the data layer; MySQL is recognised by its dialect.",
+      "file_types": ["sql"],
+      "grammar": "tree-sitter-sequel",
+      "grammar_license": "MIT"
+    }
+  ]
+}

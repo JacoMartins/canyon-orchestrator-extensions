@@ -1,0 +1,95 @@
+# Builds every language pack for every platform and publishes them, with registry.json, as the
+# latest release. Canyon Orchestrator downloads from the latest release.
+#
+# Runs when the `release` branch is pushed, or by hand (Actions → Release → Run workflow).
+# The tag is `packs-<release>` from packs.json; bump `release` to publish a new set.
+name: Release
+
+on:
+  push:
+    branches: [release]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: true
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux-x86_64
+            prefix: lib
+            ext: so
+          - os: windows-latest
+            platform: windows-x86_64
+            prefix: ""
+            ext: dll
+          - os: macos-latest
+            platform: macos-arm64
+            prefix: lib
+            ext: dylib
+          # Intel Macs: cross-compiled on Apple Silicon (GitHub has no Intel runners left).
+          - os: macos-latest
+            platform: macos-x86_64
+            prefix: lib
+            ext: dylib
+            target: x86_64-apple-darwin
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - name: Build
+        shell: bash
+        run: |
+          if [ -n "${{ matrix.target }}" ]; then
+            cargo build --release --workspace --target ${{ matrix.target }}
+            out=target/${{ matrix.target }}/release
+          else
+            cargo build --release --workspace
+            out=target/release
+          fi
+          mkdir dist
+          # Windows runners call it `python`; the others `python3`.
+          PY=$(command -v python3 || command -v python)
+          for id in $("$PY" -c "import json;print(' '.join(p['id'] for p in json.load(open('packs.json'))['packs']))"); do
+            cp "$out/${{ matrix.prefix }}canyon_pack_${id}.${{ matrix.ext }}" "dist/${id}-${{ matrix.platform }}.${{ matrix.ext }}"
+          done
+          ls -la dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.platform }}
+          path: dist/*
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Registry
+        id: reg
+        run: |
+          tag="packs-$(python3 -c "import json;print(json.load(open('packs.json'))['release'])")"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          python3 scripts/registry.py "$tag" "$GITHUB_REPOSITORY"
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.reg.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          name: Language packs ${{ steps.reg.outputs.tag }}
+          make_latest: true
+          body: |
+            Language extensions for Canyon Orchestrator. Install them from the app's Extensions panel; there is no need to download these files by hand.
+          files: dist/*

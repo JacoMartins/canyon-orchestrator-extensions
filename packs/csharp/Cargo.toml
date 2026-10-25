@@ -1,0 +1,12 @@
+[package]
+name = "canyon-pack-csharp"
+version = "1.0.0"
+edition.workspace = true
+publish.workspace = true
+
+[lib]
+name = "canyon_pack_csharp"
+crate-type = ["cdylib"]
+
+[dependencies]
+tree-sitter-c-sharp = "0.23"
