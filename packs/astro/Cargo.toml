@@ -11,4 +11,4 @@ crate-type = ["cdylib"]
 [dependencies]
 # Grammar crate. If a crates.io release exposing `LANGUAGE` exists, prefer it:
 # tree-sitter-astro = "<version>"
-tree-sitter-astro = "0.1.1"
+tree-sitter-astro-next = "0.1.1"
