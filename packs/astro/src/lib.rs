@@ -12,5 +12,5 @@ pub extern "C" fn canyon_pack_abi() -> u32 {
 #[no_mangle]
 pub extern "C" fn canyon_grammar() -> *const () {
     // SAFETY: the grammar crate's language function has no preconditions.
-    unsafe { (tree_sitter_astro::LANGUAGE.into_raw())() }
+    unsafe { (tree_sitter_astro_next::LANGUAGE.into_raw())() }
 }
