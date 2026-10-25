@@ -27,6 +27,15 @@
       "file_types": ["sql"],
       "grammar": "tree-sitter-sequel",
       "grammar_license": "MIT"
+    },
+    {
+      "id": "astro",
+      "name": "Astro",
+      "version": "1.0.0",
+      "description": "Astro files: html highlights, javascript and functions become part of the data layer; .astro is recognised by its dialect.",
+      "file_types": ["astro"],
+      "grammar": "tree-sitter-astro-next",
+      "grammar_license": "MIT"
     }
   ]
 }
