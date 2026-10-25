@@ -52,7 +52,7 @@
       "version": "1.0.0",
       "description": "HTML highlights.",
       "file_types": ["html", "css"],
-      "grammar": "tree-sitter-html",
+      "grammar": "tree-sitter-css",
       "grammar_license": "MIT"
     }
   ]
