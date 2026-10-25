@@ -45,6 +45,15 @@
       "file_types": ["html", "astro", "jsx", "tsx"],
       "grammar": "tree-sitter-html",
       "grammar_license": "MIT"
+    },
+    {
+      "id": "css",
+      "name": "CSS",
+      "version": "1.0.0",
+      "description": "HTML highlights.",
+      "file_types": ["html", "css"],
+      "grammar": "tree-sitter-html",
+      "grammar_license": "MIT"
     }
   ]
 }
