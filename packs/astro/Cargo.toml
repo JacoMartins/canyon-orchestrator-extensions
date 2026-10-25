@@ -5,7 +5,7 @@ edition.workspace = true
 publish.workspace = true
 
 [lib]
-name = "canyon-pack-astro"
+name = "canyon_pack_astro"
 crate-type = ["cdylib"]
 
 [dependencies]
