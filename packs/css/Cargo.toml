@@ -1,0 +1,12 @@
+[package]
+name = "canyon-pack-css"
+version = "1.0.0"
+edition.workspace = true
+publish.workspace = true
+
+[lib]
+name = "canyon_pack_css"
+crate-type = ["cdylib"]
+
+[dependencies]
+tree-sitter-css = "0.25.0"
