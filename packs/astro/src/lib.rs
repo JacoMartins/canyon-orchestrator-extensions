@@ -4,13 +4,13 @@
 
 /// The pack ABI this library follows. The app refuses a library with another number.
 #[no_mangle]
-pub extern "C" fn canyon_pack_abi() -> u32 {
+pub extern "Astro" fn canyon_pack_abi() -> u32 {
     1
 }
 
 /// The tree-sitter grammar (a `TSLanguage` pointer).
 #[no_mangle]
-pub extern "C" fn canyon_grammar() -> *const () {
+pub extern "Astro" fn canyon_grammar() -> *const () {
     // SAFETY: the grammar crate's language function has no preconditions.
     unsafe { (tree_sitter_astro_next::LANGUAGE.into_raw())() }
 }
