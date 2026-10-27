@@ -1,12 +1,15 @@
 {
-  "release": 1,
+  "release": 2,
   "packs": [
     {
       "id": "kotlin",
       "name": "Kotlin",
       "version": "1.0.0",
       "description": "Kotlin and Kotlin script: packages, imports, classes, objects and functions.",
-      "file_types": ["kt", "kts"],
+      "file_types": [
+        "kt",
+        "kts"
+      ],
       "grammar": "tree-sitter-kotlin-ng",
       "grammar_license": "MIT"
     },
@@ -15,7 +18,9 @@
       "name": "C#",
       "version": "1.0.0",
       "description": "C#: namespaces, using directives, classes, records, structs and methods.",
-      "file_types": ["cs"],
+      "file_types": [
+        "cs"
+      ],
       "grammar": "tree-sitter-c-sharp",
       "grammar_license": "MIT"
     },
@@ -24,7 +29,9 @@
       "name": "SQL (MySQL and others)",
       "version": "1.0.0",
       "description": "SQL files: tables, views and functions become part of the data layer; MySQL is recognised by its dialect.",
-      "file_types": ["sql"],
+      "file_types": [
+        "sql"
+      ],
       "grammar": "tree-sitter-sequel",
       "grammar_license": "MIT"
     },
@@ -32,8 +39,10 @@
       "id": "astro",
       "name": "Astro",
       "version": "1.0.0",
-      "description": "Astro files: html highlights, javascript and functions become part of the data layer; .astro is recognised by its dialect.",
-      "file_types": ["astro"],
+      "description": "Astro components and pages: the frontmatter, the markup and its {…} expressions, and <style> blocks. CSS inside needs the CSS extension.",
+      "file_types": [
+        "astro"
+      ],
       "grammar": "tree-sitter-astro-next",
       "grammar_license": "MIT"
     },
@@ -41,8 +50,11 @@
       "id": "html",
       "name": "HTML",
       "version": "1.0.0",
-      "description": "HTML highlights.",
-      "file_types": ["html", "astro", "jsx", "tsx"],
+      "description": "HTML pages: elements, ids, <script> and <style> blocks, and links to scripts and stylesheets. CSS inside needs the CSS extension.",
+      "file_types": [
+        "html",
+        "htm"
+      ],
       "grammar": "tree-sitter-html",
       "grammar_license": "MIT"
     },
@@ -50,8 +62,10 @@
       "id": "css",
       "name": "CSS",
       "version": "1.0.0",
-      "description": "HTML highlights.",
-      "file_types": ["html", "css"],
+      "description": "CSS stylesheets: rules, @media, @keyframes and @import. Also colours <style> blocks in HTML and Astro.",
+      "file_types": [
+        "css"
+      ],
       "grammar": "tree-sitter-css",
       "grammar_license": "MIT"
     }
