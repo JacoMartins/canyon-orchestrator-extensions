@@ -27,10 +27,23 @@ jobs:
             platform: linux-x86_64
             prefix: lib
             ext: so
+          # ARM Linux (Raspberry Pi, Graviton, ARM laptops): cross-compiled with GCC's aarch64
+          # toolchain, so it needs no ARM runner.
+          - os: ubuntu-latest
+            platform: linux-arm64
+            prefix: lib
+            ext: so
+            target: aarch64-unknown-linux-gnu
           - os: windows-latest
             platform: windows-x86_64
             prefix: ""
             ext: dll
+          # Windows on ARM (Snapdragon laptops): the runner's Visual Studio has the ARM64 tools.
+          - os: windows-latest
+            platform: windows-arm64
+            prefix: ""
+            ext: dll
+            target: aarch64-pc-windows-msvc
           - os: macos-latest
             platform: macos-arm64
             prefix: lib
@@ -47,6 +60,13 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{ matrix.target }}
+      - name: ARM Linux toolchain
+        if: matrix.target == 'aarch64-unknown-linux-gnu'
+        run: |
+          sudo apt-get update -q && sudo apt-get install -yq gcc-aarch64-linux-gnu
+          # The grammar's C code and the final link both go through the cross compiler.
+          echo "CC_aarch64_unknown_linux_gnu=aarch64-linux-gnu-gcc" >> "$GITHUB_ENV"
+          echo "CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-gnu-gcc" >> "$GITHUB_ENV"
       - name: Build
         shell: bash
         run: |

@@ -13,7 +13,7 @@ else is a pack here, downloaded by the app only when you choose to install it.
 ## How a pack works
 
 A pack is a tree-sitter grammar compiled as a native library for each platform
-(`linux-x86_64`, `windows-x86_64`, `macos-arm64`, `macos-x86_64`). It exports two functions,
+(`linux-x86_64`, `linux-arm64`, `windows-x86_64`, `windows-arm64`, `macos-arm64`, `macos-x86_64`). It exports two functions,
 the *pack ABI*:
 
 ```rust
