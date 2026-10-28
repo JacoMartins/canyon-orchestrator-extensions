@@ -1,9 +1,9 @@
 {
-  "release": 3,
+  "release": 4,
   "packs": [
     {
       "id": "kotlin",
-      "name": "Kotlin",
+      "name": "Kotlin tree-sitter",
       "version": "1.0.0",
       "description": "Kotlin and Kotlin script: packages, imports, classes, objects and functions.",
       "file_types": [
@@ -15,7 +15,7 @@
     },
     {
       "id": "csharp",
-      "name": "C#",
+      "name": "C# tree-sitter",
       "version": "1.0.0",
       "description": "C#: namespaces, using directives, classes, records, structs and methods.",
       "file_types": [
@@ -26,7 +26,7 @@
     },
     {
       "id": "sql",
-      "name": "SQL (MySQL and others)",
+      "name": "SQL tree-sitter (MySQL and others)",
       "version": "1.0.0",
       "description": "SQL files: tables, views and functions become part of the data layer; MySQL is recognised by its dialect.",
       "file_types": [
@@ -37,7 +37,7 @@
     },
     {
       "id": "astro",
-      "name": "Astro",
+      "name": "Astro tree-sitter",
       "version": "1.0.0",
       "description": "Astro components and pages: the frontmatter, the markup and its {…} expressions, and <style> blocks. CSS inside needs the CSS extension.",
       "file_types": [
@@ -48,7 +48,7 @@
     },
     {
       "id": "html",
-      "name": "HTML",
+      "name": "HTML tree-sitter",
       "version": "1.0.0",
       "description": "HTML pages: elements, ids, <script> and <style> blocks, and links to scripts and stylesheets. CSS inside needs the CSS extension.",
       "file_types": [
@@ -60,7 +60,7 @@
     },
     {
       "id": "css",
-      "name": "CSS",
+      "name": "CSS tree-sitter",
       "version": "1.0.0",
       "description": "CSS stylesheets: rules, @media, @keyframes and @import. Also colours <style> blocks in HTML and Astro.",
       "file_types": [
