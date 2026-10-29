@@ -49,6 +49,9 @@ for pack in packs["packs"]:
             "file_types": pack["file_types"],
             "files": files,
             "queries": queries,
+            # What it asks for beyond its grammar (files, commands, network, a program of its
+            # own), shown to the person before it installs. Grammar packs ask for none.
+            **({"needs": pack["needs"]} if pack.get("needs") else {}),
         }
     )
 

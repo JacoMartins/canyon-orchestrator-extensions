@@ -31,6 +31,14 @@ with a short Canyon section at its end (or, for Kotlin, one written for Canyon).
 and the same for each query file (published as `<id>-highlights.scm`); the app refuses a
 download whose hash does not match.
 
+## What an extension asks for
+
+An entry in `packs.json` may say what it needs beyond its grammar, under `needs`: `read` and
+`write` (repo-relative globs), `commands` (programs it runs), `network` (hosts) and `backend`
+(a program of its own). The app shows that before installing, and installs only what the person
+allowed; an update that asks for more is asked again. Grammar packs ask for none, and the dialog
+says so, along with the fact that the pack is a native library Canyon loads.
+
 ## Publishing
 
 1. Change a pack (or add one under `packs/`, with its `queries/highlights.scm`, and list it in
