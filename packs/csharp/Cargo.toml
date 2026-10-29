@@ -1,6 +1,6 @@
 [package]
 name = "canyon-pack-csharp"
-version = "1.0.0"
+version = "1.1.0"
 edition.workspace = true
 publish.workspace = true
 
@@ -10,3 +10,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 tree-sitter-c-sharp = "0.23"
+
+# Only for the test that the pack's highlights.scm compiles against its grammar.
+[dev-dependencies]
+tree-sitter = "0.25"

@@ -9,6 +9,9 @@ else is a pack here, downloaded by the app only when you choose to install it.
 | `kotlin` | `.kt`, `.kts` | tree-sitter-kotlin-ng (MIT) |
 | `csharp` | `.cs` | tree-sitter-c-sharp (MIT) |
 | `sql` | `.sql` (MySQL and other dialects) | tree-sitter-sequel (MIT) |
+| `astro` | `.astro` | tree-sitter-astro-next (MIT or Apache-2.0) |
+| `html` | `.html`, `.htm` | tree-sitter-html (MIT) |
+| `css` | `.css` | tree-sitter-css (MIT) |
 
 ## How a pack works
 
@@ -21,14 +24,19 @@ the *pack ABI*:
 #[no_mangle] pub extern "C" fn canyon_grammar() -> *const ();  // the TSLanguage
 ```
 
-The app knows how to analyse each language (imports, declarations, links); the pack brings only
-the grammar. Every release publishes `registry.json` with each library's URL, SHA-256 and size,
-and the app refuses a download whose hash does not match.
+The app knows how to analyse each language (imports, declarations, links); the pack brings the
+grammar and its colours: `packs/<id>/queries/highlights.scm`, the grammar's own highlight query
+with a short Canyon section at its end (or, for Kotlin, one written for Canyon). Each pack's test
+(`cargo test --workspace`) checks that its query compiles against its grammar. Every release publishes `registry.json` with each library's URL, SHA-256 and size,
+and the same for each query file (published as `<id>-highlights.scm`); the app refuses a
+download whose hash does not match.
 
 ## Publishing
 
-1. Change a pack (or add one under `packs/` and list it in `packs.json`).
-2. Bump `release` in `packs.json`.
+1. Change a pack (or add one under `packs/`, with its `queries/highlights.scm`, and list it in
+   `packs.json`).
+2. Bump the pack's `version` (installed copies are offered the update) and `release` in
+   `packs.json`.
 3. Push to the `release` branch, or run **Actions → Release → Run workflow**.
 
 The workflow builds every pack on every platform and publishes `packs-<release>` as the latest
@@ -36,5 +44,5 @@ release, which is where the app looks.
 
 ## Licences
 
-The grammars are third-party work under their own licences (all MIT, listed above). The glue
+The grammars are third-party work under their own licences (MIT, and MIT or Apache-2.0 for Astro, listed above), and so are the highlight queries copied from them, which name their source at the top. The glue
 code in `packs/` and `scripts/` belongs to the Canyon Orchestrator project.

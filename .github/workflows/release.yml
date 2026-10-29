@@ -67,6 +67,10 @@ jobs:
           # The grammar's C code and the final link both go through the cross compiler.
           echo "CC_aarch64_unknown_linux_gnu=aarch64-linux-gnu-gcc" >> "$GITHUB_ENV"
           echo "CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-gnu-gcc" >> "$GITHUB_ENV"
+      # The packs' tests check that each highlights.scm compiles against its grammar.
+      - name: Test
+        if: matrix.platform == 'linux-x86_64'
+        run: cargo test --workspace
       - name: Build
         shell: bash
         run: |
@@ -101,6 +105,11 @@ jobs:
       - name: Registry
         id: reg
         run: |
+          # Query files are the same on every platform: one copy each, named <id>-<name>.scm.
+          for f in packs/*/queries/*.scm; do
+            id=$(basename "$(dirname "$(dirname "$f")")")
+            cp "$f" "dist/${id}-$(basename "$f")"
+          done
           tag="packs-$(python3 -c "import json;print(json.load(open('packs.json'))['release'])")"
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
           python3 scripts/registry.py "$tag" "$GITHUB_REPOSITORY"
