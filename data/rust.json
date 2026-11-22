@@ -1,0 +1,40 @@
+{
+  "format": 1,
+  "kind": "new-items",
+  "id": "rust",
+  "name": "Rust: new modules",
+  "version": "1.0.0",
+  "about": "Module, integration test and binary.",
+  "file_types": [
+    "rs"
+  ],
+  "items": [
+    {
+      "id": "module",
+      "name": "Module",
+      "path": "{{name_snake}}.rs",
+      "text": "//! {{Name}}.\n",
+      "name_kind": "identifier",
+      "hint": "pricing",
+      "about": "Add `mod …;` to its parent to use it."
+    },
+    {
+      "id": "test",
+      "name": "Integration test",
+      "path": "{{name_snake}}.rs",
+      "text": "#[test]\nfn {{name_snake}}() {\n    assert!(true);\n}\n",
+      "name_kind": "identifier",
+      "hint": "checkout",
+      "about": "In the tests/ folder."
+    },
+    {
+      "id": "bin",
+      "name": "Binary",
+      "path": "{{name_snake}}.rs",
+      "text": "fn main() {\n}\n",
+      "name_kind": "identifier",
+      "hint": "import_data",
+      "about": "In src/bin/: `cargo run --bin …`."
+    }
+  ]
+}

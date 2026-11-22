@@ -13,6 +13,33 @@ else is a pack here, downloaded by the app only when you choose to install it.
 | `html` | `.html`, `.htm` | tree-sitter-html (MIT) |
 | `css` | `.css` | tree-sitter-css (MIT) |
 
+## Data packs
+
+Beside the grammar packs, `data/` holds **data packs**: JSON files the app downloads and reads,
+with nothing in them that runs. They work on every platform the app does, phones included, where
+downloaded native code is not allowed (the main repo's `docs/mobile.md`, "Study: extensions a
+phone can take as data").
+
+The first kind, `new-items`, adds what Files' **+** can create in a language:
+
+| Pack | Adds |
+|---|---|
+| `java` | Class, interface, enum, record, abstract class, annotation, exception, main class, JUnit 5 test, package |
+| `kotlin` | Class, data class, interface, object, enum class, sealed interface, test, file |
+| `react` | Component (JSX or TSX), hook, context, Vitest test |
+| `python` | Module, class, dataclass, package, pytest test |
+| `rust` | Module, integration test, binary |
+
+Each item says where the new file goes (relative to the folder you are in) and its starting
+text, with placeholders: the name you type in its casings (`{{NamePascal}}`, `{{name_snake}}`…)
+and the folder's package (`{{java_package_line}}`). The app's engine fills them in, keeps the file
+inside the repository, and never writes over a file (`crates/canyon-engine/src/items.rs` in the
+main repo).
+
+`data/index.json` is the catalog the app downloads: each pack's version, URL, size and SHA-256,
+checked before a download is kept. Edit `scripts/data_packs.py`, then run
+`python3 scripts/data_packs.py` to write the packs and the catalog again.
+
 ## How a pack works
 
 A pack is a tree-sitter grammar compiled as a native library for each platform

@@ -1,0 +1,96 @@
+{
+  "format": 1,
+  "kind": "new-items",
+  "id": "java",
+  "name": "Java: new classes and packages",
+  "version": "1.0.0",
+  "about": "Class, interface, enum, record, annotation, exception, JUnit test and package, with the package line from the folder.",
+  "file_types": [
+    "java"
+  ],
+  "items": [
+    {
+      "id": "class",
+      "name": "Class",
+      "path": "{{NamePascal}}.java",
+      "text": "{{java_package_line}}public class {{NamePascal}} {\n}\n",
+      "name_kind": "identifier",
+      "hint": "Cart"
+    },
+    {
+      "id": "interface",
+      "name": "Interface",
+      "path": "{{NamePascal}}.java",
+      "text": "{{java_package_line}}public interface {{NamePascal}} {\n}\n",
+      "name_kind": "identifier",
+      "hint": "PaymentGateway"
+    },
+    {
+      "id": "enum",
+      "name": "Enum",
+      "path": "{{NamePascal}}.java",
+      "text": "{{java_package_line}}public enum {{NamePascal}} {\n}\n",
+      "name_kind": "identifier",
+      "hint": "OrderStatus"
+    },
+    {
+      "id": "record",
+      "name": "Record",
+      "path": "{{NamePascal}}.java",
+      "text": "{{java_package_line}}public record {{NamePascal}}() {\n}\n",
+      "name_kind": "identifier",
+      "hint": "Point",
+      "about": "Java 16 and later."
+    },
+    {
+      "id": "abstract",
+      "name": "Abstract class",
+      "path": "{{NamePascal}}.java",
+      "text": "{{java_package_line}}public abstract class {{NamePascal}} {\n}\n",
+      "name_kind": "identifier",
+      "hint": "Shape"
+    },
+    {
+      "id": "annotation",
+      "name": "Annotation",
+      "path": "{{NamePascal}}.java",
+      "text": "{{java_package_line}}import java.lang.annotation.ElementType;\nimport java.lang.annotation.Retention;\nimport java.lang.annotation.RetentionPolicy;\nimport java.lang.annotation.Target;\n\n@Retention(RetentionPolicy.RUNTIME)\n@Target(ElementType.TYPE)\npublic @interface {{NamePascal}} {\n}\n",
+      "name_kind": "identifier",
+      "hint": "Audited"
+    },
+    {
+      "id": "exception",
+      "name": "Exception",
+      "path": "{{NamePascal}}.java",
+      "text": "{{java_package_line}}public class {{NamePascal}} extends RuntimeException {\n    public {{NamePascal}}(String message) {\n        super(message);\n    }\n}\n",
+      "name_kind": "identifier",
+      "hint": "OutOfStockException"
+    },
+    {
+      "id": "main",
+      "name": "Main class",
+      "path": "{{NamePascal}}.java",
+      "text": "{{java_package_line}}public class {{NamePascal}} {\n    public static void main(String[] args) {\n    }\n}\n",
+      "name_kind": "identifier",
+      "hint": "App"
+    },
+    {
+      "id": "test",
+      "name": "JUnit 5 test",
+      "path": "{{NamePascal}}.java",
+      "text": "{{java_package_line}}import static org.junit.jupiter.api.Assertions.*;\n\nimport org.junit.jupiter.api.Test;\n\nclass {{NamePascal}} {\n    @Test\n    void works() {\n    }\n}\n",
+      "name_kind": "identifier",
+      "hint": "CartTest",
+      "about": "In a test folder (src/test/java/…)."
+    },
+    {
+      "id": "package",
+      "name": "Package",
+      "path": "{{name_path}}/package-info.java",
+      "text": "package {{package.}}{{Name}};\n",
+      "name_kind": "dotted",
+      "hint": "cart.checkout",
+      "about": "A package (folder) under this one."
+    }
+  ]
+}
