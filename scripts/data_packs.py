@@ -26,30 +26,111 @@ def item(id, name, path, text, name_kind="identifier", hint=None, about=None):
     return out
 
 
-J = "{{java_package_line}}"
+# Java, as Eclipse's "New" wizards: each item asks for the source folder, the package and what
+# Eclipse asks (modifiers, superclass, interfaces, method stubs, comments), and the file goes to
+# its package's folder under the source folder. Fields and `{{#…}}` sections are explained in the
+# main repo's `crates/canyon-engine/src/items.rs`.
+def field(id, kind, label, about=None, hint=None, default=None, **extra):
+    out = {"id": id, "kind": kind, "label": label}
+    for k, v in (("about", about), ("hint", hint), ("default", default)):
+        if v is not None:
+            out[k] = v
+    out.update(extra)
+    return out
+
+
+def source(roots=("src/main/java",)):
+    return field("source", "source", "Source folder", hint="src/main/java", roots=list(roots))
+
+
+PACKAGE = field("package", "package", "Package", about="Empty for the default package.", hint="com.example.shop")
+ACCESS = field("access", "choice", "Access", options=[{"value": "public ", "label": "public"}, {"value": "", "label": "package"}])
+COMMENTS = field("comments", "check", "Generate comments", about="A Javadoc comment above the type.")
+
+
+def jitem(id, name, text, fields, hint, about=None, name_kind="identifier", path="{{package_path}}/{{NamePascal}}.java", **extra):
+    out = item(id, name, path, text, name_kind=name_kind, hint=hint, about=about)
+    out["place"] = "source"
+    out["fields"] = fields
+    out.update(extra)
+    return out
+
+
+HEAD = "{{java_package_line}}{{java_imports}}"
+DOC = "{{#comments}}/**\n * {{NamePascal}}.\n */\n{{/comments}}"
 JAVA = [
-    item("class", "Class", "{{NamePascal}}.java", J + "public class {{NamePascal}} {\n}\n", hint="Cart"),
-    item("interface", "Interface", "{{NamePascal}}.java", J + "public interface {{NamePascal}} {\n}\n", hint="PaymentGateway"),
-    item("enum", "Enum", "{{NamePascal}}.java", J + "public enum {{NamePascal}} {\n}\n", hint="OrderStatus"),
-    item("record", "Record", "{{NamePascal}}.java", J + "public record {{NamePascal}}() {\n}\n", hint="Point", about="Java 16 and later."),
-    item("abstract", "Abstract class", "{{NamePascal}}.java", J + "public abstract class {{NamePascal}} {\n}\n", hint="Shape"),
-    item("annotation", "Annotation", "{{NamePascal}}.java",
-         J + "import java.lang.annotation.ElementType;\nimport java.lang.annotation.Retention;\n"
-         "import java.lang.annotation.RetentionPolicy;\nimport java.lang.annotation.Target;\n\n"
-         "@Retention(RetentionPolicy.RUNTIME)\n@Target(ElementType.TYPE)\npublic @interface {{NamePascal}} {\n}\n",
-         hint="Audited"),
-    item("exception", "Exception", "{{NamePascal}}.java",
-         J + "public class {{NamePascal}} extends RuntimeException {\n"
-         "    public {{NamePascal}}(String message) {\n        super(message);\n    }\n}\n",
-         hint="OutOfStockException"),
-    item("main", "Main class", "{{NamePascal}}.java",
-         J + "public class {{NamePascal}} {\n    public static void main(String[] args) {\n    }\n}\n", hint="App"),
-    item("test", "JUnit 5 test", "{{NamePascal}}.java",
-         J + "import static org.junit.jupiter.api.Assertions.*;\n\nimport org.junit.jupiter.api.Test;\n\n"
-         "class {{NamePascal}} {\n    @Test\n    void works() {\n    }\n}\n",
-         hint="CartTest", about="In a test folder (src/test/java/…)."),
-    item("package", "Package", "{{name_path}}/package-info.java", "package {{package.}}{{Name}};\n",
-         name_kind="dotted", hint="cart.checkout", about="A package (folder) under this one."),
+    jitem("class", "Class", HEAD + DOC +
+          "{{access}}{{#abstract}}abstract {{/abstract}}{{#final}}final {{/final}}class {{NamePascal}}"
+          "{{#superclass}} extends {{superclass}}{{/superclass}}{{#interfaces}} implements {{interfaces}}{{/interfaces}} {\n"
+          "{{#constructor}}\n    {{access}}{{NamePascal}}() {\n    }\n{{/constructor}}"
+          "{{#main}}\n    public static void main(String[] args) {\n    }\n{{/main}}}\n",
+          [source(), PACKAGE, ACCESS,
+           field("abstract", "check", "abstract", off=["final"]),
+           field("final", "check", "final", off=["abstract"]),
+           field("superclass", "type", "Superclass", about="With its package to import it.", hint="java.util.AbstractList<String>"),
+           field("interfaces", "types", "Interfaces", about="Separated by commas.", hint="java.io.Serializable, Comparable<Cart>"),
+           field("main", "check", "public static void main(String[] args)"),
+           field("constructor", "check", "Constructor", about="An empty one, with no arguments."),
+           COMMENTS],
+          hint="Cart"),
+    jitem("interface", "Interface", HEAD + DOC +
+          "{{access}}interface {{NamePascal}}{{#interfaces}} extends {{interfaces}}{{/interfaces}} {\n}\n",
+          [source(), PACKAGE, ACCESS,
+           field("interfaces", "types", "Extended interfaces", about="Separated by commas.", hint="java.io.Serializable"),
+           COMMENTS],
+          hint="PaymentGateway"),
+    jitem("enum", "Enum", HEAD + DOC +
+          "{{access}}enum {{NamePascal}}{{#interfaces}} implements {{interfaces}}{{/interfaces}} {\n"
+          "{{#constants}}    {{constants}};\n{{/constants}}}\n",
+          [source(), PACKAGE, ACCESS,
+           field("constants", "text", "Constants", about="Separated by commas.", hint="NEW, PAID, SHIPPED"),
+           field("interfaces", "types", "Interfaces", hint="java.io.Serializable"),
+           COMMENTS],
+          hint="OrderStatus"),
+    jitem("record", "Record", HEAD + DOC +
+          "{{access}}record {{NamePascal}}({{components}}){{#interfaces}} implements {{interfaces}}{{/interfaces}} {\n}\n",
+          [source(), PACKAGE, ACCESS,
+           field("components", "text", "Components", about="Its fields, as in a method's parameters.", hint="String id, int quantity"),
+           field("interfaces", "types", "Interfaces", hint="Comparable<Item>"),
+           COMMENTS],
+          hint="LineItem", about="Java 16 and later."),
+    jitem("annotation", "Annotation", HEAD +
+          "import java.lang.annotation.ElementType;\nimport java.lang.annotation.Retention;\n"
+          "import java.lang.annotation.RetentionPolicy;\nimport java.lang.annotation.Target;\n\n" + DOC +
+          "@Retention(RetentionPolicy.{{retention}})\n@Target(ElementType.{{target}})\n{{access}}@interface {{NamePascal}} {\n}\n",
+          [source(), PACKAGE, ACCESS,
+           field("retention", "choice", "Retention", options=[{"value": v, "label": v.lower()} for v in ("RUNTIME", "CLASS", "SOURCE")]),
+           field("target", "choice", "Target", options=[{"value": v, "label": v.lower()} for v in ("TYPE", "METHOD", "FIELD", "PARAMETER", "CONSTRUCTOR")]),
+           COMMENTS],
+          hint="Audited"),
+    jitem("exception", "Exception", HEAD + DOC +
+          "{{access}}class {{NamePascal}} extends {{superclass}} {\n"
+          "    {{access}}{{NamePascal}}(String message) {\n        super(message);\n    }\n"
+          "{{#cause}}\n    {{access}}{{NamePascal}}(String message, Throwable cause) {\n        super(message, cause);\n    }\n{{/cause}}}\n",
+          [source(), PACKAGE, ACCESS,
+           field("superclass", "type", "Superclass", about="Checked: Exception. Unchecked: RuntimeException.", default="RuntimeException"),
+           field("cause", "check", "Constructor with a cause", default=True),
+           COMMENTS],
+          hint="OutOfStockException"),
+    jitem("test", "JUnit 5 test case", HEAD +
+          "import static org.junit.jupiter.api.Assertions.*;\n\n"
+          "{{#after}}import org.junit.jupiter.api.AfterEach;\n{{/after}}"
+          "{{#before}}import org.junit.jupiter.api.BeforeEach;\n{{/before}}import org.junit.jupiter.api.Test;\n\n" + DOC +
+          "class {{NamePascal}} {\n"
+          "{{#under}}\n    private {{under}} subject;\n{{/under}}"
+          "{{#before}}\n    @BeforeEach\n    void setUp() {\n{{#under}}        subject = new {{under}}();\n{{/under}}    }\n{{/before}}"
+          "{{#after}}\n    @AfterEach\n    void tearDown() {\n    }\n{{/after}}"
+          "\n    @Test\n    void works() {\n        fail(\"Not yet implemented\");\n    }\n}\n",
+          [source(("src/test/java",)), PACKAGE,
+           field("under", "type", "Class under test", hint="Cart"),
+           field("before", "check", "setUp() with @BeforeEach"),
+           field("after", "check", "tearDown() with @AfterEach"),
+           COMMENTS],
+          hint="CartTest", about="Made in src/test/java, in the same package."),
+    jitem("package", "Package", "{{#comments}}/**\n * {{Name}}.\n */\n{{/comments}}package {{Name}};\n",
+          [source(), field("comments", "check", "Create package-info.java comment", about="A Javadoc comment for the package.")],
+          hint="com.example.shop.cart", about="Its folders, with a package-info.java.",
+          name_kind="dotted", path="{{name_path}}/package-info.java", name_start="{{package.}}"),
 ]
 
 K = "{{kotlin_package_line}}"
@@ -107,7 +188,7 @@ RUST = [
 ]
 
 PACKS = [
-    ("java", "Java: new classes and packages", "Class, interface, enum, record, annotation, exception, JUnit test and package, with the package line from the folder.", ["java"], JAVA),
+    ("java", "Java: new classes and packages", "As in Eclipse: class, interface, enum, record, annotation, exception, JUnit 5 test case and package, each with its source folder, package and options. Fits Maven and Gradle projects.", ["java"], JAVA),
     ("kotlin", "Kotlin: new classes and files", "Class, data class, interface, object, enum, sealed interface and test, with the package line from the folder.", ["kt"], KOTLIN),
     ("react", "React: new components and hooks", "Component (JSX or TSX), hook, context and Vitest test.", ["jsx", "tsx"], REACT),
     ("python", "Python: new modules and classes", "Module, class, dataclass, package and pytest test.", ["py"], PYTHON),

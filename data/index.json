@@ -6,13 +6,13 @@
       "name": "Java: new classes and packages",
       "kind": "new-items",
       "version": "1.0.0",
-      "about": "Class, interface, enum, record, annotation, exception, JUnit test and package, with the package line from the folder.",
+      "about": "As in Eclipse: class, interface, enum, record, annotation, exception, JUnit 5 test case and package, each with its source folder, package and options. Fits Maven and Gradle projects.",
       "file_types": [
         "java"
       ],
       "url": "https://raw.githubusercontent.com/JacoMartins/canyon-orchestrator-extensions/main/data/java.json",
-      "size": 3275,
-      "sha256": "d14b2b17cec0fcbdf5c68d6f57f92bf7b6747792374edc9822c809e4999066a1"
+      "size": 15155,
+      "sha256": "726037308b19c025cebdd7b17772ec121ad500cd805b1d7475a57b0ce1cd5104"
     },
     {
       "id": "kotlin",

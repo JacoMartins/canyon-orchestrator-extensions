@@ -4,7 +4,7 @@
   "id": "java",
   "name": "Java: new classes and packages",
   "version": "1.0.0",
-  "about": "Class, interface, enum, record, annotation, exception, JUnit test and package, with the package line from the folder.",
+  "about": "As in Eclipse: class, interface, enum, record, annotation, exception, JUnit 5 test case and package, each with its source folder, package and options. Fits Maven and Gradle projects.",
   "file_types": [
     "java"
   ],
@@ -12,85 +12,502 @@
     {
       "id": "class",
       "name": "Class",
-      "path": "{{NamePascal}}.java",
-      "text": "{{java_package_line}}public class {{NamePascal}} {\n}\n",
+      "path": "{{package_path}}/{{NamePascal}}.java",
+      "text": "{{java_package_line}}{{java_imports}}{{#comments}}/**\n * {{NamePascal}}.\n */\n{{/comments}}{{access}}{{#abstract}}abstract {{/abstract}}{{#final}}final {{/final}}class {{NamePascal}}{{#superclass}} extends {{superclass}}{{/superclass}}{{#interfaces}} implements {{interfaces}}{{/interfaces}} {\n{{#constructor}}\n    {{access}}{{NamePascal}}() {\n    }\n{{/constructor}}{{#main}}\n    public static void main(String[] args) {\n    }\n{{/main}}}\n",
       "name_kind": "identifier",
-      "hint": "Cart"
+      "hint": "Cart",
+      "place": "source",
+      "fields": [
+        {
+          "id": "source",
+          "kind": "source",
+          "label": "Source folder",
+          "hint": "src/main/java",
+          "roots": [
+            "src/main/java"
+          ]
+        },
+        {
+          "id": "package",
+          "kind": "package",
+          "label": "Package",
+          "about": "Empty for the default package.",
+          "hint": "com.example.shop"
+        },
+        {
+          "id": "access",
+          "kind": "choice",
+          "label": "Access",
+          "options": [
+            {
+              "value": "public ",
+              "label": "public"
+            },
+            {
+              "value": "",
+              "label": "package"
+            }
+          ]
+        },
+        {
+          "id": "abstract",
+          "kind": "check",
+          "label": "abstract",
+          "off": [
+            "final"
+          ]
+        },
+        {
+          "id": "final",
+          "kind": "check",
+          "label": "final",
+          "off": [
+            "abstract"
+          ]
+        },
+        {
+          "id": "superclass",
+          "kind": "type",
+          "label": "Superclass",
+          "about": "With its package to import it.",
+          "hint": "java.util.AbstractList<String>"
+        },
+        {
+          "id": "interfaces",
+          "kind": "types",
+          "label": "Interfaces",
+          "about": "Separated by commas.",
+          "hint": "java.io.Serializable, Comparable<Cart>"
+        },
+        {
+          "id": "main",
+          "kind": "check",
+          "label": "public static void main(String[] args)"
+        },
+        {
+          "id": "constructor",
+          "kind": "check",
+          "label": "Constructor",
+          "about": "An empty one, with no arguments."
+        },
+        {
+          "id": "comments",
+          "kind": "check",
+          "label": "Generate comments",
+          "about": "A Javadoc comment above the type."
+        }
+      ]
     },
     {
       "id": "interface",
       "name": "Interface",
-      "path": "{{NamePascal}}.java",
-      "text": "{{java_package_line}}public interface {{NamePascal}} {\n}\n",
+      "path": "{{package_path}}/{{NamePascal}}.java",
+      "text": "{{java_package_line}}{{java_imports}}{{#comments}}/**\n * {{NamePascal}}.\n */\n{{/comments}}{{access}}interface {{NamePascal}}{{#interfaces}} extends {{interfaces}}{{/interfaces}} {\n}\n",
       "name_kind": "identifier",
-      "hint": "PaymentGateway"
+      "hint": "PaymentGateway",
+      "place": "source",
+      "fields": [
+        {
+          "id": "source",
+          "kind": "source",
+          "label": "Source folder",
+          "hint": "src/main/java",
+          "roots": [
+            "src/main/java"
+          ]
+        },
+        {
+          "id": "package",
+          "kind": "package",
+          "label": "Package",
+          "about": "Empty for the default package.",
+          "hint": "com.example.shop"
+        },
+        {
+          "id": "access",
+          "kind": "choice",
+          "label": "Access",
+          "options": [
+            {
+              "value": "public ",
+              "label": "public"
+            },
+            {
+              "value": "",
+              "label": "package"
+            }
+          ]
+        },
+        {
+          "id": "interfaces",
+          "kind": "types",
+          "label": "Extended interfaces",
+          "about": "Separated by commas.",
+          "hint": "java.io.Serializable"
+        },
+        {
+          "id": "comments",
+          "kind": "check",
+          "label": "Generate comments",
+          "about": "A Javadoc comment above the type."
+        }
+      ]
     },
     {
       "id": "enum",
       "name": "Enum",
-      "path": "{{NamePascal}}.java",
-      "text": "{{java_package_line}}public enum {{NamePascal}} {\n}\n",
+      "path": "{{package_path}}/{{NamePascal}}.java",
+      "text": "{{java_package_line}}{{java_imports}}{{#comments}}/**\n * {{NamePascal}}.\n */\n{{/comments}}{{access}}enum {{NamePascal}}{{#interfaces}} implements {{interfaces}}{{/interfaces}} {\n{{#constants}}    {{constants}};\n{{/constants}}}\n",
       "name_kind": "identifier",
-      "hint": "OrderStatus"
+      "hint": "OrderStatus",
+      "place": "source",
+      "fields": [
+        {
+          "id": "source",
+          "kind": "source",
+          "label": "Source folder",
+          "hint": "src/main/java",
+          "roots": [
+            "src/main/java"
+          ]
+        },
+        {
+          "id": "package",
+          "kind": "package",
+          "label": "Package",
+          "about": "Empty for the default package.",
+          "hint": "com.example.shop"
+        },
+        {
+          "id": "access",
+          "kind": "choice",
+          "label": "Access",
+          "options": [
+            {
+              "value": "public ",
+              "label": "public"
+            },
+            {
+              "value": "",
+              "label": "package"
+            }
+          ]
+        },
+        {
+          "id": "constants",
+          "kind": "text",
+          "label": "Constants",
+          "about": "Separated by commas.",
+          "hint": "NEW, PAID, SHIPPED"
+        },
+        {
+          "id": "interfaces",
+          "kind": "types",
+          "label": "Interfaces",
+          "hint": "java.io.Serializable"
+        },
+        {
+          "id": "comments",
+          "kind": "check",
+          "label": "Generate comments",
+          "about": "A Javadoc comment above the type."
+        }
+      ]
     },
     {
       "id": "record",
       "name": "Record",
-      "path": "{{NamePascal}}.java",
-      "text": "{{java_package_line}}public record {{NamePascal}}() {\n}\n",
+      "path": "{{package_path}}/{{NamePascal}}.java",
+      "text": "{{java_package_line}}{{java_imports}}{{#comments}}/**\n * {{NamePascal}}.\n */\n{{/comments}}{{access}}record {{NamePascal}}({{components}}){{#interfaces}} implements {{interfaces}}{{/interfaces}} {\n}\n",
       "name_kind": "identifier",
-      "hint": "Point",
-      "about": "Java 16 and later."
-    },
-    {
-      "id": "abstract",
-      "name": "Abstract class",
-      "path": "{{NamePascal}}.java",
-      "text": "{{java_package_line}}public abstract class {{NamePascal}} {\n}\n",
-      "name_kind": "identifier",
-      "hint": "Shape"
+      "hint": "LineItem",
+      "about": "Java 16 and later.",
+      "place": "source",
+      "fields": [
+        {
+          "id": "source",
+          "kind": "source",
+          "label": "Source folder",
+          "hint": "src/main/java",
+          "roots": [
+            "src/main/java"
+          ]
+        },
+        {
+          "id": "package",
+          "kind": "package",
+          "label": "Package",
+          "about": "Empty for the default package.",
+          "hint": "com.example.shop"
+        },
+        {
+          "id": "access",
+          "kind": "choice",
+          "label": "Access",
+          "options": [
+            {
+              "value": "public ",
+              "label": "public"
+            },
+            {
+              "value": "",
+              "label": "package"
+            }
+          ]
+        },
+        {
+          "id": "components",
+          "kind": "text",
+          "label": "Components",
+          "about": "Its fields, as in a method's parameters.",
+          "hint": "String id, int quantity"
+        },
+        {
+          "id": "interfaces",
+          "kind": "types",
+          "label": "Interfaces",
+          "hint": "Comparable<Item>"
+        },
+        {
+          "id": "comments",
+          "kind": "check",
+          "label": "Generate comments",
+          "about": "A Javadoc comment above the type."
+        }
+      ]
     },
     {
       "id": "annotation",
       "name": "Annotation",
-      "path": "{{NamePascal}}.java",
-      "text": "{{java_package_line}}import java.lang.annotation.ElementType;\nimport java.lang.annotation.Retention;\nimport java.lang.annotation.RetentionPolicy;\nimport java.lang.annotation.Target;\n\n@Retention(RetentionPolicy.RUNTIME)\n@Target(ElementType.TYPE)\npublic @interface {{NamePascal}} {\n}\n",
+      "path": "{{package_path}}/{{NamePascal}}.java",
+      "text": "{{java_package_line}}{{java_imports}}import java.lang.annotation.ElementType;\nimport java.lang.annotation.Retention;\nimport java.lang.annotation.RetentionPolicy;\nimport java.lang.annotation.Target;\n\n{{#comments}}/**\n * {{NamePascal}}.\n */\n{{/comments}}@Retention(RetentionPolicy.{{retention}})\n@Target(ElementType.{{target}})\n{{access}}@interface {{NamePascal}} {\n}\n",
       "name_kind": "identifier",
-      "hint": "Audited"
+      "hint": "Audited",
+      "place": "source",
+      "fields": [
+        {
+          "id": "source",
+          "kind": "source",
+          "label": "Source folder",
+          "hint": "src/main/java",
+          "roots": [
+            "src/main/java"
+          ]
+        },
+        {
+          "id": "package",
+          "kind": "package",
+          "label": "Package",
+          "about": "Empty for the default package.",
+          "hint": "com.example.shop"
+        },
+        {
+          "id": "access",
+          "kind": "choice",
+          "label": "Access",
+          "options": [
+            {
+              "value": "public ",
+              "label": "public"
+            },
+            {
+              "value": "",
+              "label": "package"
+            }
+          ]
+        },
+        {
+          "id": "retention",
+          "kind": "choice",
+          "label": "Retention",
+          "options": [
+            {
+              "value": "RUNTIME",
+              "label": "runtime"
+            },
+            {
+              "value": "CLASS",
+              "label": "class"
+            },
+            {
+              "value": "SOURCE",
+              "label": "source"
+            }
+          ]
+        },
+        {
+          "id": "target",
+          "kind": "choice",
+          "label": "Target",
+          "options": [
+            {
+              "value": "TYPE",
+              "label": "type"
+            },
+            {
+              "value": "METHOD",
+              "label": "method"
+            },
+            {
+              "value": "FIELD",
+              "label": "field"
+            },
+            {
+              "value": "PARAMETER",
+              "label": "parameter"
+            },
+            {
+              "value": "CONSTRUCTOR",
+              "label": "constructor"
+            }
+          ]
+        },
+        {
+          "id": "comments",
+          "kind": "check",
+          "label": "Generate comments",
+          "about": "A Javadoc comment above the type."
+        }
+      ]
     },
     {
       "id": "exception",
       "name": "Exception",
-      "path": "{{NamePascal}}.java",
-      "text": "{{java_package_line}}public class {{NamePascal}} extends RuntimeException {\n    public {{NamePascal}}(String message) {\n        super(message);\n    }\n}\n",
+      "path": "{{package_path}}/{{NamePascal}}.java",
+      "text": "{{java_package_line}}{{java_imports}}{{#comments}}/**\n * {{NamePascal}}.\n */\n{{/comments}}{{access}}class {{NamePascal}} extends {{superclass}} {\n    {{access}}{{NamePascal}}(String message) {\n        super(message);\n    }\n{{#cause}}\n    {{access}}{{NamePascal}}(String message, Throwable cause) {\n        super(message, cause);\n    }\n{{/cause}}}\n",
       "name_kind": "identifier",
-      "hint": "OutOfStockException"
-    },
-    {
-      "id": "main",
-      "name": "Main class",
-      "path": "{{NamePascal}}.java",
-      "text": "{{java_package_line}}public class {{NamePascal}} {\n    public static void main(String[] args) {\n    }\n}\n",
-      "name_kind": "identifier",
-      "hint": "App"
+      "hint": "OutOfStockException",
+      "place": "source",
+      "fields": [
+        {
+          "id": "source",
+          "kind": "source",
+          "label": "Source folder",
+          "hint": "src/main/java",
+          "roots": [
+            "src/main/java"
+          ]
+        },
+        {
+          "id": "package",
+          "kind": "package",
+          "label": "Package",
+          "about": "Empty for the default package.",
+          "hint": "com.example.shop"
+        },
+        {
+          "id": "access",
+          "kind": "choice",
+          "label": "Access",
+          "options": [
+            {
+              "value": "public ",
+              "label": "public"
+            },
+            {
+              "value": "",
+              "label": "package"
+            }
+          ]
+        },
+        {
+          "id": "superclass",
+          "kind": "type",
+          "label": "Superclass",
+          "about": "Checked: Exception. Unchecked: RuntimeException.",
+          "default": "RuntimeException"
+        },
+        {
+          "id": "cause",
+          "kind": "check",
+          "label": "Constructor with a cause",
+          "default": true
+        },
+        {
+          "id": "comments",
+          "kind": "check",
+          "label": "Generate comments",
+          "about": "A Javadoc comment above the type."
+        }
+      ]
     },
     {
       "id": "test",
-      "name": "JUnit 5 test",
-      "path": "{{NamePascal}}.java",
-      "text": "{{java_package_line}}import static org.junit.jupiter.api.Assertions.*;\n\nimport org.junit.jupiter.api.Test;\n\nclass {{NamePascal}} {\n    @Test\n    void works() {\n    }\n}\n",
+      "name": "JUnit 5 test case",
+      "path": "{{package_path}}/{{NamePascal}}.java",
+      "text": "{{java_package_line}}{{java_imports}}import static org.junit.jupiter.api.Assertions.*;\n\n{{#after}}import org.junit.jupiter.api.AfterEach;\n{{/after}}{{#before}}import org.junit.jupiter.api.BeforeEach;\n{{/before}}import org.junit.jupiter.api.Test;\n\n{{#comments}}/**\n * {{NamePascal}}.\n */\n{{/comments}}class {{NamePascal}} {\n{{#under}}\n    private {{under}} subject;\n{{/under}}{{#before}}\n    @BeforeEach\n    void setUp() {\n{{#under}}        subject = new {{under}}();\n{{/under}}    }\n{{/before}}{{#after}}\n    @AfterEach\n    void tearDown() {\n    }\n{{/after}}\n    @Test\n    void works() {\n        fail(\"Not yet implemented\");\n    }\n}\n",
       "name_kind": "identifier",
       "hint": "CartTest",
-      "about": "In a test folder (src/test/java/…)."
+      "about": "Made in src/test/java, in the same package.",
+      "place": "source",
+      "fields": [
+        {
+          "id": "source",
+          "kind": "source",
+          "label": "Source folder",
+          "hint": "src/main/java",
+          "roots": [
+            "src/test/java"
+          ]
+        },
+        {
+          "id": "package",
+          "kind": "package",
+          "label": "Package",
+          "about": "Empty for the default package.",
+          "hint": "com.example.shop"
+        },
+        {
+          "id": "under",
+          "kind": "type",
+          "label": "Class under test",
+          "hint": "Cart"
+        },
+        {
+          "id": "before",
+          "kind": "check",
+          "label": "setUp() with @BeforeEach"
+        },
+        {
+          "id": "after",
+          "kind": "check",
+          "label": "tearDown() with @AfterEach"
+        },
+        {
+          "id": "comments",
+          "kind": "check",
+          "label": "Generate comments",
+          "about": "A Javadoc comment above the type."
+        }
+      ]
     },
     {
       "id": "package",
       "name": "Package",
       "path": "{{name_path}}/package-info.java",
-      "text": "package {{package.}}{{Name}};\n",
+      "text": "{{#comments}}/**\n * {{Name}}.\n */\n{{/comments}}package {{Name}};\n",
       "name_kind": "dotted",
-      "hint": "cart.checkout",
-      "about": "A package (folder) under this one."
+      "hint": "com.example.shop.cart",
+      "about": "Its folders, with a package-info.java.",
+      "place": "source",
+      "fields": [
+        {
+          "id": "source",
+          "kind": "source",
+          "label": "Source folder",
+          "hint": "src/main/java",
+          "roots": [
+            "src/main/java"
+          ]
+        },
+        {
+          "id": "comments",
+          "kind": "check",
+          "label": "Create package-info.java comment",
+          "about": "A Javadoc comment for the package."
+        }
+      ],
+      "name_start": "{{package.}}"
     }
   ]
 }
