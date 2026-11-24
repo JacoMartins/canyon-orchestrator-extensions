@@ -1,0 +1,55 @@
+{
+  "format": 1,
+  "kind": "new-items",
+  "id": "react",
+  "name": "React: new components and hooks",
+  "version": "1.0.0",
+  "about": "Component (JSX or TSX), hook, context and Vitest test.",
+  "file_types": [
+    "jsx",
+    "tsx"
+  ],
+  "items": [
+    {
+      "id": "component",
+      "name": "Component",
+      "path": "{{NamePascal}}.jsx",
+      "text": "export default function {{NamePascal}}() {\n  return <div>{{NamePascal}}</div>\n}\n",
+      "name_kind": "identifier",
+      "hint": "ProductCard"
+    },
+    {
+      "id": "component-ts",
+      "name": "Component (TypeScript)",
+      "path": "{{NamePascal}}.tsx",
+      "text": "type {{NamePascal}}Props = {}\n\nexport default function {{NamePascal}}({}: {{NamePascal}}Props) {\n  return <div>{{NamePascal}}</div>\n}\n",
+      "name_kind": "identifier",
+      "hint": "ProductCard"
+    },
+    {
+      "id": "hook",
+      "name": "Hook",
+      "path": "use{{NamePascal}}.js",
+      "text": "import { useState } from 'react'\n\nexport function use{{NamePascal}}() {\n  const [value, setValue] = useState(null)\n  return [value, setValue]\n}\n",
+      "name_kind": "identifier",
+      "hint": "Cart",
+      "about": "Named use…, as React expects."
+    },
+    {
+      "id": "context",
+      "name": "Context",
+      "path": "{{NamePascal}}Context.jsx",
+      "text": "import { createContext, useContext } from 'react'\n\nconst {{NamePascal}}Context = createContext(null)\n\nexport function {{NamePascal}}Provider({ children }) {\n  return <{{NamePascal}}Context.Provider value={null}>{children}</{{NamePascal}}Context.Provider>\n}\n\nexport function use{{NamePascal}}() {\n  return useContext({{NamePascal}}Context)\n}\n",
+      "name_kind": "identifier",
+      "hint": "Cart"
+    },
+    {
+      "id": "test",
+      "name": "Test (Vitest)",
+      "path": "{{NamePascal}}.test.jsx",
+      "text": "import { describe, it, expect } from 'vitest'\n\ndescribe('{{NamePascal}}', () => {\n  it('works', () => {\n    expect(true).toBe(true)\n  })\n})\n",
+      "name_kind": "identifier",
+      "hint": "ProductCard"
+    }
+  ]
+}

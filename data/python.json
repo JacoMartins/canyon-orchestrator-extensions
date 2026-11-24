@@ -1,0 +1,54 @@
+{
+  "format": 1,
+  "kind": "new-items",
+  "id": "python",
+  "name": "Python: new modules and classes",
+  "version": "1.0.0",
+  "about": "Module, class, dataclass, package and pytest test.",
+  "file_types": [
+    "py"
+  ],
+  "items": [
+    {
+      "id": "module",
+      "name": "Module",
+      "path": "{{name_snake}}.py",
+      "text": "\"\"\"{{Name}}.\"\"\"\n",
+      "name_kind": "identifier",
+      "hint": "pricing"
+    },
+    {
+      "id": "class",
+      "name": "Class",
+      "path": "{{name_snake}}.py",
+      "text": "\"\"\"{{NamePascal}}.\"\"\"\n\n\nclass {{NamePascal}}:\n    def __init__(self) -> None:\n        pass\n",
+      "name_kind": "identifier",
+      "hint": "Cart"
+    },
+    {
+      "id": "dataclass",
+      "name": "Dataclass",
+      "path": "{{name_snake}}.py",
+      "text": "\"\"\"{{NamePascal}}.\"\"\"\n\nfrom dataclasses import dataclass\n\n\n@dataclass\nclass {{NamePascal}}:\n    id: str\n",
+      "name_kind": "identifier",
+      "hint": "Product"
+    },
+    {
+      "id": "package",
+      "name": "Package",
+      "path": "{{name_snake}}/__init__.py",
+      "text": "\"\"\"{{Name}}.\"\"\"\n",
+      "name_kind": "identifier",
+      "hint": "checkout",
+      "about": "A folder with __init__.py."
+    },
+    {
+      "id": "test",
+      "name": "Test (pytest)",
+      "path": "test_{{name_snake}}.py",
+      "text": "def test_{{name_snake}}():\n    assert True\n",
+      "name_kind": "identifier",
+      "hint": "cart"
+    }
+  ]
+}

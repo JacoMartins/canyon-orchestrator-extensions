@@ -1,0 +1,79 @@
+{
+  "format": 1,
+  "kind": "new-items",
+  "id": "kotlin",
+  "name": "Kotlin: new classes and files",
+  "version": "1.0.0",
+  "about": "Class, data class, interface, object, enum, sealed interface and test, with the package line from the folder.",
+  "file_types": [
+    "kt"
+  ],
+  "items": [
+    {
+      "id": "class",
+      "name": "Class",
+      "path": "{{NamePascal}}.kt",
+      "text": "{{kotlin_package_line}}class {{NamePascal}} {\n}\n",
+      "name_kind": "identifier",
+      "hint": "Cart"
+    },
+    {
+      "id": "data",
+      "name": "Data class",
+      "path": "{{NamePascal}}.kt",
+      "text": "{{kotlin_package_line}}data class {{NamePascal}}(\n    val id: String,\n)\n",
+      "name_kind": "identifier",
+      "hint": "Product"
+    },
+    {
+      "id": "interface",
+      "name": "Interface",
+      "path": "{{NamePascal}}.kt",
+      "text": "{{kotlin_package_line}}interface {{NamePascal}} {\n}\n",
+      "name_kind": "identifier",
+      "hint": "PaymentGateway"
+    },
+    {
+      "id": "object",
+      "name": "Object",
+      "path": "{{NamePascal}}.kt",
+      "text": "{{kotlin_package_line}}object {{NamePascal}} {\n}\n",
+      "name_kind": "identifier",
+      "hint": "Config"
+    },
+    {
+      "id": "enum",
+      "name": "Enum class",
+      "path": "{{NamePascal}}.kt",
+      "text": "{{kotlin_package_line}}enum class {{NamePascal}} {\n}\n",
+      "name_kind": "identifier",
+      "hint": "OrderStatus"
+    },
+    {
+      "id": "sealed",
+      "name": "Sealed interface",
+      "path": "{{NamePascal}}.kt",
+      "text": "{{kotlin_package_line}}sealed interface {{NamePascal}} {\n}\n",
+      "name_kind": "identifier",
+      "hint": "Result"
+    },
+    {
+      "id": "test",
+      "name": "Test",
+      "path": "{{NamePascal}}.kt",
+      "text": "{{kotlin_package_line}}import kotlin.test.Test\nimport kotlin.test.assertTrue\n\nclass {{NamePascal}} {\n    @Test\n    fun works() {\n        assertTrue(true)\n    }\n}\n",
+      "name_kind": "identifier",
+      "hint": "CartTest",
+      "about": "kotlin.test, in a test folder."
+    },
+    {
+      "id": "file",
+      "name": "File",
+      "path": "{{NamePascal}}.kt",
+      "text": "{{kotlin_package_line}}",
+      "name_kind": "identifier",
+      "hint": "Extensions",
+      "about": "An empty Kotlin file in this package."
+    }
+  ]
+}

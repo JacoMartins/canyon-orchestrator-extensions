@@ -1,0 +1,71 @@
+{
+  "format": 1,
+  "packs": [
+    {
+      "id": "java",
+      "name": "Java: new classes and packages",
+      "kind": "new-items",
+      "version": "1.0.0",
+      "about": "As in Eclipse: class, interface, enum, record, annotation, exception, JUnit 5 test case and package, each with its source folder, package and options. Fits Maven and Gradle projects.",
+      "file_types": [
+        "java"
+      ],
+      "url": "https://raw.githubusercontent.com/JacoMartins/canyon-orchestrator-extensions/main/data/java.json",
+      "size": 15155,
+      "sha256": "726037308b19c025cebdd7b17772ec121ad500cd805b1d7475a57b0ce1cd5104"
+    },
+    {
+      "id": "kotlin",
+      "name": "Kotlin: new classes and files",
+      "kind": "new-items",
+      "version": "1.0.0",
+      "about": "Class, data class, interface, object, enum, sealed interface and test, with the package line from the folder.",
+      "file_types": [
+        "kt"
+      ],
+      "url": "https://raw.githubusercontent.com/JacoMartins/canyon-orchestrator-extensions/main/data/kotlin.json",
+      "size": 2314,
+      "sha256": "f3c3b05f1d63d48d20deae285892f4d66e452156e0c0dc74d2c1d8a4b9d2f41b"
+    },
+    {
+      "id": "react",
+      "name": "React: new components and hooks",
+      "kind": "new-items",
+      "version": "1.0.0",
+      "about": "Component (JSX or TSX), hook, context and Vitest test.",
+      "file_types": [
+        "jsx",
+        "tsx"
+      ],
+      "url": "https://raw.githubusercontent.com/JacoMartins/canyon-orchestrator-extensions/main/data/react.json",
+      "size": 2077,
+      "sha256": "05187455055232c5280a2cf478199dbee74d46fbba0a3d017a5a9edec1ac1dcb"
+    },
+    {
+      "id": "python",
+      "name": "Python: new modules and classes",
+      "kind": "new-items",
+      "version": "1.0.0",
+      "about": "Module, class, dataclass, package and pytest test.",
+      "file_types": [
+        "py"
+      ],
+      "url": "https://raw.githubusercontent.com/JacoMartins/canyon-orchestrator-extensions/main/data/python.json",
+      "size": 1462,
+      "sha256": "d4ae34137f2b964347d892294aba99b34b0dcaa7cc3e8afd317f4e7a2adf1261"
+    },
+    {
+      "id": "rust",
+      "name": "Rust: new modules",
+      "kind": "new-items",
+      "version": "1.0.0",
+      "about": "Module, integration test and binary.",
+      "file_types": [
+        "rs"
+      ],
+      "url": "https://raw.githubusercontent.com/JacoMartins/canyon-orchestrator-extensions/main/data/rust.json",
+      "size": 965,
+      "sha256": "21896166df8db9c92a191a7c772240e463c31fc279f81f610b2a388c5bfcc6c6"
+    }
+  ]
+}
